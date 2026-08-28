@@ -9,13 +9,11 @@ int exec_simple(t_shell *sh, char **argv)
     int     status;
 
     pid = fork();
-    if (pid < 0)
-    {
+    if (pid < 0) {
         tci_printf("fork: failed\n");
         return (1);
     }
-    if (pid == 0)
-    {
+    if (pid == 0) {
         execvp(argv[0], argv);
         fprintf(stderr, "%s: command not found\n", argv[0]);
         _exit(127);
@@ -35,8 +33,7 @@ int exec_simple(t_shell *sh, char **argv)
  * implement yet -- report it cleanly instead of doing nothing silently. */
 int exec_node(t_shell *sh, t_node *node)
 {
-    if (node->type == NODE_CMD)
-    {
+    if (node->type == NODE_CMD) {
         if (is_builtin(node->argv[0]))
             return (run_builtin(sh, node->argv));
         return (exec_simple(sh, node->argv));
